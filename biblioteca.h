@@ -18,7 +18,7 @@ typedef struct   {
 
 void menu();
 void cadastro(Cliente *cliente);
-
+void listarClientes(Cliente *clientes, int numClientes);
 
 
 
