@@ -61,3 +61,16 @@ void cadastro(Cliente *cliente){
    
   
 }
+void listarClientes(Cliente *clientes, int numClientes){
+    printf("\nClientes cadastrados:\n");
+    for(int i = 0; i < numClientes; i++){
+        printf("Cliente %d\n", i+1);
+        printf("Nome: %s\n",clientes[i].nome);
+        printf("Cpf:  %lld\n",clientes[i].cpf);
+        printf("Conta: %s \n",clientes[i].conta);
+        printf("Senha: %s \n", clientes[i].senha);
+        printf("Saldo: %.2f \n",clientes[i].saldo);
+        printf("---------------------------------");
+
+    }
+}
