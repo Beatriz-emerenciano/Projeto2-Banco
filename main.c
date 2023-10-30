@@ -71,7 +71,37 @@ int main() {
             printf("Nenhum cliente cadastrado!");
           }
           break;
+          case 5:
 
+          if(numClientes > 0){
+            long long int cpf;
+            float dinheiro;
+            printf("Digite o cpf:");
+            scanf("%lld",&cpf);
+            printf("Digite o valor do Deposito: ");
+            scanf("%f",&dinheiro);
+            limparBufferEntrada();
+            Deposito(clientes,numClientes,cpf,dinheiro);
+          }   else{
+            printf("Cliente nao cadastrado");
+          }       
+            break;
+          case 6:
+          if(numClientes > 1){
+            long long int cpfOrigem, cpfDestino;
+            float transfere;
+            printf("Digite o CPF do cliente remetente: ");
+            scanf("%lld",&cpfOrigem);
+            printf("Digite o CPF do cliente destinario: ");
+            scanf("%lld",&cpfDestino);
+            printf("Digite o valor da transferencia: ");
+            scanf("%f",&transfere);
+            limparBufferEntrada();
+      transferencia(clientes,numClientes,cpfOrigem,cpfDestino,transfere);
+          } else{
+            printf("não foi possivel realizar a transferencia, pois é necessário dois clientes");
+          }
+            break;
 
 
 
