@@ -160,3 +160,68 @@ void Debito(Cliente *clientes, int numClientes, long long int cpf, char *senha, 
 
 }
 
+void Deposito(Cliente * clientes, int numClientes, long long int cpf, float dinheiro){
+   int index = -1;
+  for(int i = 0; i < numClientes; i++){
+    if(clientes[i].cpf == cpf){
+      index = i;
+      break;
+    }
+  }
+
+  if(index >=0){
+    clientes[index].saldo += dinheiro;
+    
+     sprintf(clientes[index].extrato,"deposito de %.2f realizado com sucesso! do cliente %s",dinheiro,clientes[index].nome);
+    printf("%s,saldo atual: %.2f",clientes[index].extrato,clientes[index].saldo);
+    
+    /*printf("Deposito  de %.2f realizado com sucesso para o cliente %s, saldo de %.2f.\n ",dinheiro,clientes[index].nome,clientes[index].saldo);*/
+  } else {
+    printf("Cliente com cpf %lld nao encontrado \n.", cpf);
+  }
+  
+}
+
+//função tranferencia
+/*
+
+as variáveis  index origem e index destino sao iniciadas em -1, esses indices indices são usados para rastrear a posição do cliente, é usado um for para percorrer todos os clientes cadastrados onde a váriável numCliente é a quantidade total de clientes, depois há uma verificação  de cpf com um if se o cliente[i].cpf for igual o do cliente origem e o destinário, a variárial indexorigem e indexDestino conterá os indices dos clientes com os cpf correspondem a eles para depois realizar a transferência.
+
+*/
+
+void transferencia(Cliente *clientes, int numClientes, long long int cpfOrigem,long long int cpfDestino,float transferencia){
+
+  int indexOrigem = -1, indexDestino = -1; indexDestino = -1;
+  for(int i = 0; i < numClientes; i++){
+    if(clientes[i].cpf == cpfOrigem){
+      indexOrigem = i;
+    }
+    if(clientes[i].cpf == cpfDestino){
+      indexDestino = i;
+    }
+  }
+
+  if(indexOrigem >= 0 && indexDestino >= 0){
+    if(clientes[indexOrigem].saldo >= transferencia){
+      clientes[indexOrigem].saldo -= transferencia;
+      clientes[indexDestino].saldo += transferencia;
+
+      // salvando a mensagem no dado extrato da estruct do cliente origem e destino
+
+      sprintf(clientes[indexOrigem].extrato,"Transferencia de %.2f realizada com sucesso para o cliente %s",transferencia,clientes[indexDestino].nome);
+
+      sprintf(clientes[indexDestino].extrato,"Transferencia recebida de %.2f do cliente %s",transferencia,clientes[indexOrigem].nome);
+
+      printf("%s, saldo atual de:%.2f ", clientes[indexOrigem].extrato,clientes[indexOrigem].saldo);
+
+      /*
+      printf("Transferencia de %.2f realizada com sucesso do cliente %s para o cliente %s\n",transferencia,clientes[indexOrigem].nome,clientes[indexDestino].nome);*/
+    }else{
+      printf("Saldo insuficiente para realizar a transferencia\n");
+    }
+       
+    }else{
+    printf("Saldo insufuente para realizar a transferencia!\n");
+    }
+  
+}
