@@ -19,6 +19,14 @@ typedef struct   {
 void menu();
 void cadastro(Cliente *cliente);
 void listarClientes(Cliente *clientes, int numClientes);
+void limparBufferEntrada();
+void apagarCliente(Cliente *clientes, int *numCliente, long long int cpf);
+void Debito(Cliente *clientes, int numClientes, long long int cpf, char *senha, float debito);
+void Deposito(Cliente * clientes, int numClientes, long long int cpf, float dinheiro);
+void transferencia(Cliente *clientes, int numClientes, long long int cpfOrigem,long long int cpfDestino,float transferencia);
+void funcaoExtrato(Cliente *clientes, int numClientes, long long int cpf,char *senha);
+void salvar(Cliente *clientes, int numClientes);
+void carregar(Cliente *clientes,int *numClientes);
 
 
 
