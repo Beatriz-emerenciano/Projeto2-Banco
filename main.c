@@ -51,6 +51,27 @@ int main() {
           }
           break;    
 
+           case 4:
+
+          if(numClientes > 0){
+            long long int cpf;
+            char senha[10];
+            float debito;
+            printf("Digite o CPF do cliente:\n");
+            scanf("%lld", &cpf);
+            printf("Digite a senha:\n ");
+            limparBufferEntrada();
+            fgets(senha,sizeof(senha),stdin);
+            senha[strcspn(senha, "\n")] = '\0';
+            printf("Digite o valor de debito: \n");
+            scanf("%f",&debito);
+            limparBufferEntrada();
+            Debito(clientes,numClientes,cpf,senha,debito);
+          } else{
+            printf("Nenhum cliente cadastrado!");
+          }
+          break;
+
 
 
 

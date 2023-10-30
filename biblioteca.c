@@ -97,3 +97,66 @@ void apagarCliente(Cliente *clientes, int *numClientes, long long int cpf){
   }
   
 }
+
+/* a função débito inicializa como index -1 para armazenar a pocição do cliente e usala no código, se estiver validado o cpf e a senha, será descontaod do seu saldo o valor junto com o juros*/
+void Debito(Cliente *clientes, int numClientes, long long int cpf, char *senha, float debito){
+  int index = -1;
+  for(int i = 0; i < numClientes; i++){
+    if(clientes[i].cpf == cpf && strcmp(clientes[i].senha,senha) == 0){
+      index = i;
+      break;
+    }
+    
+  }
+  if(index >= 0){
+   //verifica o tipo da conta do cliente para aplicar o desconto
+    if(strcmp(clientes[index].conta,"corrente") == 0 ){
+      float tarifa = 0.05;
+      float valor = (debito * tarifa);
+      float total = valor + debito;
+      
+
+      //verificando se há saldo negativo
+      if (clientes[index].saldo - debito >=-1000){
+          clientes[index].saldo -= total;
+
+        sprintf(clientes[index].extrato,"Debito de %.2f,tarifa de: %.2f realizado com sucesso! do cliente %s",total,tarifa,clientes[index].nome);
+
+        printf("%s, saldo atual: %.2f",clientes[index].extrato,clientes[index].saldo);
+
+
+        
+        /* printf("Debito de %.2f realizado com sucesso para o cliente %s (conta corrente), Saldo de %.2f.\n",total,clientes[index].nome,clientes[index].saldo);
+        */
+      }else {
+    printf("Operação invalida!\n");
+      }
+  }else if (strcmp(clientes[index].conta,"plus") == 0){
+
+      // desconta da conta plus
+      float tarifa = 0.03;
+      float valor = (debito * tarifa);
+      float total = valor + debito;
+       
+
+      // verifica se ha saldo negativo
+      if(clientes[index].saldo - debito >= -5000){
+        clientes[index].saldo -= debito; 
+
+        sprintf(clientes[index].extrato,"Debito de %.2f, tarifa: %.2f realizado com sucesso! do cliente %s",total,tarifa,clientes[index].nome);
+
+        printf("%s, saldo atual: %.2f",clientes[index].extrato,clientes[index].saldo);
+        
+       /* printf("Debito %.2f realizado com sucesso para cliente %s (conta plus).\n ",debito,clientes[index].nome);*/
+        
+      } else{
+        printf("Operacao invalida");
+      }
+    
+  } else{
+      printf("Cliente com CPF ou senha invalidos!\n");
+  }
+}
+
+}
+
