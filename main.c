@@ -39,6 +39,20 @@ int main() {
                 listarClientes(clientes, numClientes);
                 break;
 
+            case 3:
+          if(numClientes > 0){
+            long long int cpf;
+            printf("Digite o cliente o CPF do cliente que deseja apagar");
+            scanf("%lld",&cpf);
+            limparBufferEntrada();
+            apagarCliente(clientes,&numClientes,cpf);
+          }else{
+            printf("Cliente não encontado!");
+          }
+          break;    
+
+
+
 
             case 0:
                 printf("obrigada por usar o sistema Quem Poupa Tem! ");

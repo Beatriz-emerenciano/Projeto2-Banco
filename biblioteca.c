@@ -74,3 +74,26 @@ void listarClientes(Cliente *clientes, int numClientes){
 
     }
 }
+
+ /*a função apagar cliente recebe como argumento uma matriz de clientes, o numero total de clientes e o cpf do cliente para apagar, ela inicializa a variável index -1 que será usada para armazenar a posição do cliente no vetor*/
+
+void apagarCliente(Cliente *clientes, int *numClientes, long long int cpf){
+  int index = -1;
+  for(int i = 0; i <*numClientes; i++){
+    if (clientes[i].cpf == cpf) {
+      index = i;
+      break;
+    }
+  }
+  if(index >= 0){
+    for(int i = index; i < *numClientes -1; i++){
+      clientes[i] = clientes[ i + 1];
+    }
+
+    (*numClientes)--;
+    printf("Cliente apagado com sucesso!\n");
+  }else {
+    printf("Cliente com cpf %lld não encontrado\n",cpf);
+  }
+  
+}
