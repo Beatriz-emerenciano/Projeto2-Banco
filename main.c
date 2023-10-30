@@ -8,6 +8,12 @@ int main() {
     int numClientes = 0; // essa variavel serve para armazenar e controlar  o número de clientes cadastrados
     int opcao;
 
+    /* aqui na função main é apenas chama as funções  para a leitura de alguns dados do usuário é usado o fgets para fazer a leitura de daods do tipo string e é cahamdo tbm a função limparbuffer para evitar problemas, é usaod também um looping para que o menu seja exibido pelo menos 1 vez se o usupario digitar 0 o programa é encerrado*/
+
+  
+  // carregar os dados do clientes do arquivo e do extrato 
+  carregar(clientes, &numClientes);
+
 
     printf("----------Ola, bem vindo ao banco Quem Poupa Tem!----------\n");
 
@@ -103,9 +109,28 @@ int main() {
           }
             break;
 
+          case 7:
+            //função extrato
+          if(numClientes > 0){
+            long long int cpf;
+            char senha[10];
+            float debito;
+            printf("Digite o CPF do cliente:\n");
+            scanf("%lld", &cpf);
+            printf("Digite a senha:\n ");
+            limparBufferEntrada();
+            fgets(senha,sizeof(senha),stdin);
+            senha[strcspn(senha, "\n")] = '\0';
+            funcaoExtrato(clientes,numClientes,cpf,senha);
+          } else{
+            printf("Cliente não encontrado!");
+          }
+          break;  
+
 
 
             case 0:
+                salvar(clientes,numClientes);
                 printf("obrigada por usar o sistema Quem Poupa Tem! ");
 
 

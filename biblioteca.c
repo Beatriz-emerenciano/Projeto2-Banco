@@ -225,3 +225,55 @@ void transferencia(Cliente *clientes, int numClientes, long long int cpfOrigem,l
     }
   
 }
+
+void funcaoExtrato(Cliente *clientes, int numClientes, long long int cpf,char *senha){
+
+int index = -1;
+  for(int i = 0; i < numClientes; i++){
+    if(clientes[i].cpf == cpf && strcmp(clientes[i].senha,senha) == 0 ){
+      index = i;
+    }
+  }
+
+  if(index >= 0){
+    printf("Extrato do cliente %s\n",clientes[index].nome);
+    printf("%s",clientes[index].extrato);
+  } else {
+    printf("Cliente com cpf ou senha errado!\n");
+  }
+}
+
+/*Função para salvar os dados do clientes em arquivo binário: essa função rece o vetor clientes e o numero de clientes cadastros(numClientes) e esqueve no arquivo binário*/
+
+void salvar(Cliente *clientes, int numClientes){
+    FILE *arquivo = fopen("clientes.bin","wb");
+  if(arquivo == NULL){
+    printf("Erro ao abrir o arquivo \n");
+    return;
+  }
+
+  fwrite(clientes, sizeof(Cliente),numClientes,arquivo);
+  fclose(arquivo);
+}
+
+
+
+/* a função carregar, le os dados do arquivo binário e os carrega de volta no vetor de clientes atualizando o numero de clientes cadastrados*/
+
+void carregar(Cliente *clientes,int *numClientes){
+  FILE *arquivo = fopen("clientes.bin","rb");
+  if(arquivo == NULL){
+
+    printf("arquivo não encontrado!");
+    return;
+    
+  }
+
+  *numClientes  = fread(clientes,sizeof(Cliente),1000, arquivo);
+  fclose(arquivo);
+  
+}
+
+
+
+
