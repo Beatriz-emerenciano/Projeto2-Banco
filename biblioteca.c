@@ -24,22 +24,23 @@ void menu(){
 }
 
 //função para limpar o buffer de entrada
+/* essa função tem a finalidade de limpar o buffer de entrada, para que não gere comportamentos inesperados*/
 void limparBufferEntrada(){
   int c;
-  while((c = getchar()) != '\n' && c != EOF ){}
- 
-    
+  while((c = getchar()) != '\n' && c != EOF ){} /*esta linha  delcara a variável do tipo inteiro que serrá usada para armazenas os caracteres lidos no buffer*/
+
+
     }
 
 
 // função cadastro
-
+/*na função cadastro exibe uma mensagem para o usuário entrar com os dados , é usado o fgets e stdin  para ler texto e armazena na struct clientes, é usado tbm o strcpn para remover o \n que representa o comprimento da string*/
 void cadastro(Cliente *cliente){
 
     printf("Digite o nome cliente: ");
     fgets(cliente->nome, sizeof(cliente->nome),stdin); 
     cliente->nome[strcspn(cliente->nome, "\n")] = '\0';
-   
+
 
     printf("Digite o cpf:");
     scanf("%lld",&cliente->cpf);
@@ -58,24 +59,29 @@ void cadastro(Cliente *cliente){
     scanf("%f",&cliente->saldo);
     limparBufferEntrada();
 
-   
-  
+
+
 }
+
 void listarClientes(Cliente *clientes, int numClientes){
-    printf("\nClientes cadastrados:\n");
-    for(int i = 0; i < numClientes; i++){
-        printf("Cliente %d\n", i+1);
-        printf("Nome: %s\n",clientes[i].nome);
-        printf("Cpf:  %lld\n",clientes[i].cpf);
-        printf("Conta: %s \n",clientes[i].conta);
-        printf("Senha: %s \n", clientes[i].senha);
-        printf("Saldo: %.2f \n",clientes[i].saldo);
-        printf("---------------------------------");
+  printf("\nClientes cadastrados:\n");
 
-    }
+
+
+
+  for(int i = 0; i < numClientes; i++){
+    printf("Cliente %d\n", i + 1);
+    printf("Nome: %s\n",clientes[i].nome);
+    printf("Cpf:  %lld\n",clientes[i].cpf);
+    printf("Conta: %s \n",clientes[i].conta);
+    printf("Senha: %s \n", clientes[i].senha);
+    printf("Saldo: %.2f \n",clientes[i].saldo);
+    printf("\n");
+
+  }
 }
 
- /*a função apagar cliente recebe como argumento uma matriz de clientes, o numero total de clientes e o cpf do cliente para apagar, ela inicializa a variável index -1 que será usada para armazenar a posição do cliente no vetor*/
+  /*a função apagar cliente recebe como argumento um ponteiro de clientes, o numero total de clientes e o cpf do cliente para apagar, ela inicializa a variável index -1 que será usada para armazenar a posição do cliente no vetor*/
 
 void apagarCliente(Cliente *clientes, int *numClientes, long long int cpf){
   int index = -1;
@@ -95,7 +101,7 @@ void apagarCliente(Cliente *clientes, int *numClientes, long long int cpf){
   }else {
     printf("Cliente com cpf %lld não encontrado\n",cpf);
   }
-  
+
 }
 
 /* a função débito inicializa como index -1 para armazenar a pocição do cliente e usala no código, se estiver validado o cpf e a senha, será descontaod do seu saldo o valor junto com o juros*/
@@ -106,7 +112,7 @@ void Debito(Cliente *clientes, int numClientes, long long int cpf, char *senha, 
       index = i;
       break;
     }
-    
+
   }
   if(index >= 0){
    //verifica o tipo da conta do cliente para aplicar o desconto
@@ -114,7 +120,7 @@ void Debito(Cliente *clientes, int numClientes, long long int cpf, char *senha, 
       float tarifa = 0.05;
       float valor = (debito * tarifa);
       float total = valor + debito;
-      
+
 
       //verificando se há saldo negativo
       if (clientes[index].saldo - debito >=-1000){
@@ -125,7 +131,7 @@ void Debito(Cliente *clientes, int numClientes, long long int cpf, char *senha, 
         printf("%s, saldo atual: %.2f",clientes[index].extrato,clientes[index].saldo);
 
 
-        
+
         /* printf("Debito de %.2f realizado com sucesso para o cliente %s (conta corrente), Saldo de %.2f.\n",total,clientes[index].nome,clientes[index].saldo);
         */
       }else {
@@ -137,7 +143,7 @@ void Debito(Cliente *clientes, int numClientes, long long int cpf, char *senha, 
       float tarifa = 0.03;
       float valor = (debito * tarifa);
       float total = valor + debito;
-       
+
 
       // verifica se ha saldo negativo
       if(clientes[index].saldo - debito >= -5000){
@@ -146,19 +152,23 @@ void Debito(Cliente *clientes, int numClientes, long long int cpf, char *senha, 
         sprintf(clientes[index].extrato,"Debito de %.2f, tarifa: %.2f realizado com sucesso! do cliente %s",total,tarifa,clientes[index].nome);
 
         printf("%s, saldo atual: %.2f",clientes[index].extrato,clientes[index].saldo);
-        
+
        /* printf("Debito %.2f realizado com sucesso para cliente %s (conta plus).\n ",debito,clientes[index].nome);*/
-        
+
       } else{
         printf("Operacao invalida");
       }
-    
+
   } else{
       printf("Cliente com CPF ou senha invalidos!\n");
   }
 }
 
 }
+
+// função deposito
+
+/* a função depósito também inicializa com index menos 1 para armazenar a posição do cliente e fazer validação, se tudo ok ele irá adicionar o valor no saldo*/
 
 void Deposito(Cliente * clientes, int numClientes, long long int cpf, float dinheiro){
    int index = -1;
@@ -171,15 +181,15 @@ void Deposito(Cliente * clientes, int numClientes, long long int cpf, float dinh
 
   if(index >=0){
     clientes[index].saldo += dinheiro;
-    
+
      sprintf(clientes[index].extrato,"deposito de %.2f realizado com sucesso! do cliente %s",dinheiro,clientes[index].nome);
     printf("%s,saldo atual: %.2f",clientes[index].extrato,clientes[index].saldo);
-    
+
     /*printf("Deposito  de %.2f realizado com sucesso para o cliente %s, saldo de %.2f.\n ",dinheiro,clientes[index].nome,clientes[index].saldo);*/
   } else {
     printf("Cliente com cpf %lld nao encontrado \n.", cpf);
   }
-  
+
 }
 
 //função tranferencia
@@ -219,12 +229,17 @@ void transferencia(Cliente *clientes, int numClientes, long long int cpfOrigem,l
     }else{
       printf("Saldo insuficiente para realizar a transferencia\n");
     }
-       
+
     }else{
     printf("Saldo insufuente para realizar a transferencia!\n");
     }
-  
+
 }
+
+
+//função extrato
+
+/* a função extrato recebe como argumento um vetor de clientes e o numero total de clientes, o cpf e a senha , aqui tammbém é usado o a inicialização indez -1 para armazenar a posição do cliente */
 
 void funcaoExtrato(Cliente *clientes, int numClientes, long long int cpf,char *senha){
 
@@ -243,7 +258,7 @@ int index = -1;
   }
 }
 
-/*Função para salvar os dados do clientes em arquivo binário: essa função rece o vetor clientes e o numero de clientes cadastros(numClientes) e esqueve no arquivo binário*/
+/*Função para salvar os dados do clientes em arquivo binário: essa função recebe o vetor clientes e o numero de clientes cadastros(numClientes) e esqueve no arquivo binário*/
 
 void salvar(Cliente *clientes, int numClientes){
     FILE *arquivo = fopen("clientes.bin","wb");
@@ -266,13 +281,43 @@ void carregar(Cliente *clientes,int *numClientes){
 
     printf("arquivo não encontrado!");
     return;
-    
+
   }
 
   *numClientes  = fread(clientes,sizeof(Cliente),1000, arquivo);
   fclose(arquivo);
-  
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
