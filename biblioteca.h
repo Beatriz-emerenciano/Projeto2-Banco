@@ -14,6 +14,8 @@ typedef struct   {
     char conta[20];
     char senha[10];
     float saldo;
+    char extrato[1000];
+
 } Cliente;
 
 void menu();
@@ -27,6 +29,24 @@ void transferencia(Cliente *clientes, int numClientes, long long int cpfOrigem,l
 void funcaoExtrato(Cliente *clientes, int numClientes, long long int cpf,char *senha);
 void salvar(Cliente *clientes, int numClientes);
 void carregar(Cliente *clientes,int *numClientes);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

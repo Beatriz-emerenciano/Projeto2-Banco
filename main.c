@@ -4,48 +4,50 @@
 #include <string.h>
 int main() {
 
-    Cliente clientes[1000]; // aqui é criado um vetor para armazenar todos os clientes cadastrados
-    int numClientes = 0; // essa variavel serve para armazenar e controlar  o número de clientes cadastrados
-    int opcao;
+  Cliente clientes[1000]; // aqui é criado um vetor para armazenar todos os clientes cadastrados
+  int numClientes = 0; // essa variavel serve para armazenar e controlar  o número de clientes cadastrados
+  int opcao;
 
-    /* aqui na função main é apenas chama as funções  para a leitura de alguns dados do usuário é usado o fgets para fazer a leitura de daods do tipo string e é cahamdo tbm a função limparbuffer para evitar problemas, é usaod também um looping para que o menu seja exibido pelo menos 1 vez se o usupario digitar 0 o programa é encerrado*/
 
-  
+/* aqui na função main é apenas chama as funções  para a leitura de alguns dados do usuário é usado o fgets para fazer a leitura de daods do tipo string e é cahamdo tbm a função limparbuffer para evitar problemas, é usaod também um looping para que o menu seja exibido pelo menos 1 vez se o usupario digitar 0 o programa é encerrado*/
+
+
   // carregar os dados do clientes do arquivo e do extrato 
   carregar(clientes, &numClientes);
 
 
+
     printf("----------Ola, bem vindo ao banco Quem Poupa Tem!----------\n");
 
-    bool menuexibido = false;
+     bool menuexibido = false;
 
     do {
 
-        //if(!menuexibido){
-        menu();
-        // menuexibido = true;
+      //if(!menuexibido){
+         menu();
+       // menuexibido = true;
 
-        // }
+     // }
 
 
         //menu();
         printf("Digite uma opcao\n");
         scanf("%d", &opcao);
-        limparBufferEntrada();
+      limparBufferEntrada();
         switch (opcao) {
             case 1:
                 if(numClientes < 100){
-                    cadastro(&clientes[numClientes]);
-                    numClientes++;
-                }
+                  cadastro(&clientes[numClientes]);
+                  numClientes++;
+                  }
 
                 break;
 
             case 2:
                 listarClientes(clientes, numClientes);
-                break;
+               break;
 
-            case 3:
+          case 3:
           if(numClientes > 0){
             long long int cpf;
             printf("Digite o cliente o CPF do cliente que deseja apagar");
@@ -55,9 +57,8 @@ int main() {
           }else{
             printf("Cliente não encontado!");
           }
-          break;    
-
-           case 4:
+          break;
+          case 4:
 
           if(numClientes > 0){
             long long int cpf;
@@ -77,6 +78,7 @@ int main() {
             printf("Nenhum cliente cadastrado!");
           }
           break;
+
           case 5:
 
           if(numClientes > 0){
@@ -108,7 +110,6 @@ int main() {
             printf("não foi possivel realizar a transferencia, pois é necessário dois clientes");
           }
             break;
-
           case 7:
             //função extrato
           if(numClientes > 0){
@@ -125,18 +126,21 @@ int main() {
           } else{
             printf("Cliente não encontrado!");
           }
-          break;  
+          break;
 
 
 
-            case 0:
-                salvar(clientes,numClientes);
+
+
+
+
+          case 0:
+                 salvar(clientes,numClientes);
                 printf("obrigada por usar o sistema Quem Poupa Tem! ");
 
 
 
         }
-
 
 
 
